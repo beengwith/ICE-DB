@@ -47,18 +47,18 @@ DECLARE @NewFPEntries TABLE(
 INSERT INTO @NewFPEntries 
 	SELECT C_Date, C_Time, L_TID, L_UID
 	FROM UNIS.dbo.tEnter
-	WHERE (
-		NOT EXISTS
-		(
-			SELECT *
-			FROM dbo.FPEntries
-			WHERE
-				C_Date=C_Date AND
-				C_Time=C_Time AND
-				L_TID=L_TID AND
-				L_UID=L_UID
-		)
-	)
+	WHERE 
+		L_UID <> -1
+		AND	NOT EXISTS ( 
+				SELECT *
+				FROM dbo.FPEntries
+				WHERE
+					C_Date=UNIS.dbo.tEnter.C_Date AND
+					C_Time=UNIS.dbo.tEnter.C_Time AND
+					L_TID=UNIS.dbo.tEnter.L_TID AND
+					L_UID=UNIS.dbo.tEnter.L_UID	
+			)
+		
 
 -- GET FROM ZKT
 INSERT INTO @NewFPEntries
