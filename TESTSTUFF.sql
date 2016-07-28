@@ -1,6 +1,6 @@
 select top(100) EmployeeId, convert(varchar(10), TrackDate, 102) as Date, convert(Varchar(10), InOutTime, 108) as Time, InOutStatus 
 from attendancedetails
-where employeeid = 418
+where employeeid = 409
 order by adid desc
 
 
@@ -11,4 +11,4 @@ order by adid desc
 
 -- Select * from employee where employeename like 'rana%'
 
-Select * from employee where employeeid = 418
+Select * from employee where employeename like '%wakeel%'
