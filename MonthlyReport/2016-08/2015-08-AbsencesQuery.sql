@@ -2,7 +2,7 @@
 DECLARE @end_date datetime
 
 SET @begin_date = CAST('2016-06-26 00:00:00.000' as datetime)
-SET @end_date   = CAST('2016-09-26 00:00:00.000' as datetime)
+SET @end_date   = CAST('2016-08-25 00:00:00.000' as datetime)
 
 DECLARE @saturdays_optional bit
 SET @saturdays_optional = 0
@@ -16,9 +16,9 @@ SELECT
 	, CONVERT(CHAR(20), JoiningDate, 102) as JoiningDate
 	, CONVERT(CHAR(20), AttendanceDate, 102) as AttendanceDate
 	, AttendanceStatus
-	--, TimeStatus
-	--, ApprovalStatus
-	--, ApprovedBy
+	, TimeStatus
+	, ApprovalStatus
+	, ApprovedBy
 	
 FROM
 	(SELECT

@@ -1,8 +1,8 @@
 ﻿DECLARE @begin_date datetime
 DECLARE @end_date datetime
 DECLARE @saturdays_optional bit
-SET @begin_date = CAST('2016-09-26 00:00:00.000' as datetime)
-SET @end_date   = CAST('2016-10-26 00:00:00.000' as datetime)
+SET @begin_date = CAST('2016-11-26 00:00:00.000' as datetime)
+SET @end_date   = CAST('2016-12-26 00:00:00.000' as datetime)
 SET @saturdays_optional = 0
 
 DECLARE @sandwiching bit

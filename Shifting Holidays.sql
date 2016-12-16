@@ -1,8 +1,8 @@
-﻿DECLARE @begin_date datetime
+DECLARE @begin_date datetime
 DECLARE @end_date datetime
 
-SET @begin_date = CAST('2016-06-26 00:00:00.000' as datetime)
-SET @end_date   = CAST('2016-09-26 00:00:00.000' as datetime)
+SET @begin_date = CAST('2016-06-01 00:00:00.000' as datetime)
+SET @end_date   = CAST('2016-06-26 00:00:00.000' as datetime)
 
 DECLARE @saturdays_optional bit
 SET @saturdays_optional = 0
@@ -16,9 +16,7 @@ SELECT
 	, CONVERT(CHAR(20), JoiningDate, 102) as JoiningDate
 	, CONVERT(CHAR(20), AttendanceDate, 102) as AttendanceDate
 	, AttendanceStatus
-	--, TimeStatus
-	--, ApprovalStatus
-	--, ApprovedBy
+	, Description
 	
 FROM
 	(SELECT
@@ -75,7 +73,16 @@ FROM
 	EmployeeList.EmployeeID = DailyAttendance.EmployeeID
 	
 WHERE 
-	DailyAttendance.AttendanceStatus = 'A'
+	DailyAttendance.AttendanceDate >= @begin_date 
+	and 
+	DailyAttendance.AttendanceDate < @end_date
+	and
+	DailyAttendance.AttendanceDate not in (select HolidayDate from GetHolidays(@begin_date , @end_date))
+	and 
+	DailyAttendance.AttendanceStatus = 'Holiday'
+
 
 ORDER BY EmployeeList.EmployeeName
 	
+
+

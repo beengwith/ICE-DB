@@ -1,7 +1,6 @@
 ﻿--declare @startdate datetime-
 --declare @enddat
 
-
 SELECT [Tbl_WKID]
 		,employeename
 		,department
@@ -9,7 +8,6 @@ SELECT [Tbl_WKID]
  	    ,[HolidayDetail]
  	    ,[DayWkHrs]
 		,[TWkHrs]
-
 	FROM ([dbo].[Tbl_iWkHours] as wk 
 			INNER JOIN
 			( 
@@ -23,4 +21,3 @@ SELECT [Tbl_WKID]
 		and wk.date between '2015-07-10' and '2015-07-12'
 	order by 
 		department, employeename
-	
