@@ -1,9 +1,9 @@
--- Erase record and for reevaluation from finger print data
+﻿-- Erase record and for reevaluation from finger print data
 
 Declare @code int;
 Declare @fromDate Datetime;
-SET @code=9600517
-SET @fromDate=CAST('2016-10-18' AS DATETIME)
+SET @code=9600529
+SET @fromDate=CAST('2016-05-20' AS DATETIME)
 
 
 Delete from FPEntries

@@ -1,10 +1,9 @@
 ﻿DECLARE @begin_date DateTime
 DECLARE @end_date DateTime
-SET @begin_date=CAST('2017-02-26 00:00:00.000' AS DATETIME)
-SET @end_date=CAST('2017-03-26 00:00:00.000' AS DATETIME)
+SET @begin_date=CAST('2017-02-28 00:00:00.000' AS DATETIME)
+SET @end_date=CAST('2017-03-03 00:00:00.000' AS DATETIME)
 --SET @begin_date=dateadd(m, -3, dateadd(d, -datepart(d, dateadd(dd, 0, datediff(dd, 0, getDate())))+1, dateadd(dd, 0, datediff(dd, 0, getDate()))))
 --SET @end_date=GetDate()
-
 
 
 DECLARE @DailyAttendanceData TABLE (
@@ -118,17 +117,7 @@ SELECT
 FROM
 	@DailyAttendanceData as Data
 Where
-	EmployeeName like '%Masood%Hussain%' OR
-	EmployeeName like '%Talha%Shamsi%'   OR
-	EmployeeName like '%Ali%Akber%'       OR
-	EmployeeName like '%Faisal%Kamal%'   OR
-	EmployeeName like '%Usman%Khan%'     OR
-	EmployeeName like '%Suqlain%'        OR
-	EmployeeName like '%Asad%Jawaid%'    OR
-	EmployeeName like '%Fahad%Saeed%'    OR
-	EmployeeName like '%Kevrin%'         OR
-	EmployeeName like '%Taimoor%Jahangir%' OR 
-	EmployeeName like '%Anis%Rehman%'
+	Department = 'Finance'
 GROUP BY 
 	EmployeeID,
 	EmployeeCode,

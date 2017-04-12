@@ -6,7 +6,6 @@ SET @end_date=CAST('2017-03-26 00:00:00.000' AS DATETIME)
 --SET @end_date=GetDate()
 
 
-
 DECLARE @DailyAttendanceData TABLE (
 	EmployeeID int,
 	EmployeeName varchar(100),
@@ -27,12 +26,12 @@ DECLARE @DailyAttendanceData TABLE (
 	OverTimeDifference int,
 	Late int,
 	HalfDay int,
-	ShortLeave int,
+	EarlyLeave int,
 	Food int	
 );
 
 INSERT INTO @DailyAttendanceData
-	SELECT * FROM dbo.GetDailyAttendanceData( @begin_date, @end_date )
+	SELECT * FROM dbo.GetDailyAttendanceData( @begin_date, @end_date, default )
 
 SELECT
 	EmployeeID,
@@ -71,7 +70,7 @@ SELECT
 	Sum(OverTimeDifference) as OverTime,
 	Sum(late) as Lates,
 	Sum(HalfDay) as HalfDays,
-	Sum(ShortLeave) as ShortLeaves,
+	Sum(EarlyLeave) as EarlyLeaves,
 	(SELECT Count(EmployeeID)
 		FROM @DailyAttendanceData as dad
 		WHERE
@@ -117,18 +116,8 @@ SELECT
 	SUM(Food) as FoodOrders
 FROM
 	@DailyAttendanceData as Data
-Where
-	EmployeeName like '%Masood%Hussain%' OR
-	EmployeeName like '%Talha%Shamsi%'   OR
-	EmployeeName like '%Ali%Akber%'       OR
-	EmployeeName like '%Faisal%Kamal%'   OR
-	EmployeeName like '%Usman%Khan%'     OR
-	EmployeeName like '%Suqlain%'        OR
-	EmployeeName like '%Asad%Jawaid%'    OR
-	EmployeeName like '%Fahad%Saeed%'    OR
-	EmployeeName like '%Kevrin%'         OR
-	EmployeeName like '%Taimoor%Jahangir%' OR 
-	EmployeeName like '%Anis%Rehman%'
+WHERE
+	Department = 'Modeling'
 GROUP BY 
 	EmployeeID,
 	EmployeeCode,
@@ -160,18 +149,7 @@ SELECT
 	Food
 FROM
 	@DailyAttendanceData
-Where
-	EmployeeName like '%Masood%Hussain%' OR
-	EmployeeName like '%Talha%Shamsi%'   OR
-	EmployeeName like '%Ali%Akber%'       OR
-	EmployeeName like '%Faisal%Kamal%'   OR
-	EmployeeName like '%Usman%Khan%'     OR
-	EmployeeName like '%Suqlain%'        OR
-	EmployeeName like '%Asad%Jawaid%'    OR
-	EmployeeName like '%Fahad%Saeed%'    OR
-	EmployeeName like '%Kevrin%'         OR
-	EmployeeName like '%Taimoor%Jahangir%' OR 
-	EmployeeName like '%Anis%Rehman%'
+WHERE
+	Department = 'Modeling'
 ORDER BY 
 	Department, EmployeeName, Date
-

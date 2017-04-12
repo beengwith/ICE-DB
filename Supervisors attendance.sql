@@ -1,10 +1,9 @@
 ﻿DECLARE @begin_date DateTime
 DECLARE @end_date DateTime
-SET @begin_date=CAST('2017-02-26 00:00:00.000' AS DATETIME)
-SET @end_date=CAST('2017-03-26 00:00:00.000' AS DATETIME)
+SET @begin_date=CAST('2017-03-08 00:00:00.000' AS DATETIME)
+SET @end_date=CAST('2017-03-09 00:00:00.000' AS DATETIME)
 --SET @begin_date=dateadd(m, -3, dateadd(d, -datepart(d, dateadd(dd, 0, datediff(dd, 0, getDate())))+1, dateadd(dd, 0, datediff(dd, 0, getDate()))))
 --SET @end_date=GetDate()
-
 
 
 DECLARE @DailyAttendanceData TABLE (
@@ -174,4 +173,3 @@ Where
 	EmployeeName like '%Anis%Rehman%'
 ORDER BY 
 	Department, EmployeeName, Date
-
