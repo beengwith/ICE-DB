@@ -1,32 +1,14 @@
-﻿DECLARE @begin_date DateTime
+﻿DECLARE @EmpID INT;
+DECLARE @begin_date DateTime
 DECLARE @end_date DateTime
-DECLARE @employee_id varchar(10)
-DECLARE @employee_code varchar(10)
-DECLARE @employee_name varchar(50)
-DECLARE @department varchar(50)
-DECLARE @designation varchar(50)
-DECLARE @late_time_mins int
-DECLARE @employee_status varchar(1)
-DECLARE @saturday_optional bit
 
 
 SET @begin_date=CAST('2017-01-01 00:00:00.000' AS DATETIME)
-SET @end_date=CAST('2017-11-01 00:00:00.000' AS DATETIME)
-SET @late_time_mins=30
-SET @saturday_optional=1
+SET @end_date=CAST('2018-03-26 00:00:00.000' AS DATETIME)
+SET @EmpID = (SELECT EmployeeId FROM Employee
+			  WHERE EmployeeName like '%tai%jah%' )
 
-SET @employee_id='%'
-SET @employee_name='%tai%jah%'
-SET @employee_code='%'
 
-SET @department='%'
-SET @designation='%'
-SET @employee_status='0'
-
---SET @begin_date=dateadd(m, -3, dateadd(d, -datepart(d, dateadd(dd, 0, datediff(dd, 0, getDate())))+1, dateadd(dd, 0, datediff(dd, 0, getDate()))))
---SET @end_date=GetDate()
-	
---SELECT @begin_date as start_date, dateadd(d, , @end_date) as end_date
 
 DECLARE @DailyAttendanceData TABLE (
 	EmployeeID int,
@@ -53,18 +35,17 @@ DECLARE @DailyAttendanceData TABLE (
 );
 
 INSERT INTO @DailyAttendanceData
-	SELECT * FROM dbo.GetDailyAttendanceData(
-		@begin_date, @end_date, @late_time_mins, @saturday_optional,
-		@employee_id, @employee_name, @employee_code,
-		@department, @designation, @employee_status)
+	SELECT * FROM dbo.GetDailyAttendanceDataForEmployee( @begin_date, @end_date, 1, default )
 	
 
 SELECT
+	--EmployeeID,
 	EmployeeName,
 	EmployeeCode,
 	Department,
 	Designation,
 	JoiningDate,
+	--AttendanceStatus,
 	count(*) as TotalDaysCount,
 	(SELECT Count(EmployeeID)
 		FROM @DailyAttendanceData as dad
@@ -209,6 +190,5 @@ SELECT
 	Food
 FROM
 	@DailyAttendanceData
-
 ORDER BY
 	Department, EmployeeName, Date
