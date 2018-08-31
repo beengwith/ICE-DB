@@ -2,7 +2,7 @@
 
 Declare @code int;
 Declare @fromDate Datetime;
-SET @code=9600529
+SET @code=9600497
 SET @fromDate=CAST('2016-05-20' AS DATETIME)
 
 

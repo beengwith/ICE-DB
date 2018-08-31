@@ -1,8 +1,8 @@
 ﻿DECLARE @begin_date datetime
 DECLARE @end_date datetime
 DECLARE @saturdays_optional bit
-SET @begin_date = CAST('2016-09-26 00:00:00.000' as datetime)
-SET @end_date   = CAST('2016-10-26 00:00:00.000' as datetime)
+SET @begin_date = CAST('2018-01-01 00:00:00.000' as datetime)
+SET @end_date   = CAST('2018-08-09 00:00:00.000' as datetime)
 SET @saturdays_optional = 0
 
 DECLARE @sandwiching bit
@@ -29,7 +29,7 @@ DECLARE @OptionalDay TABLE (
 );
 
 -- Adding Holidays to a list
-INSERT INTO @Holiday SELECT * FROM GetHolidays(@begin_date, @end_date);
+INSERT INTO @Holiday SELECT * FROM GetHolidays(@begin_date, @end_date, default);
 
 -- IF Saturdays are optional add them to a list too
 IF (@saturdays_optional=1) BEGIN
@@ -63,17 +63,17 @@ END
 UPDATE EmployeeAttendance
 set AttendanceStatus='Holiday', Description='Optional'
 WHERE
-	[AttendanceDate] >= @begin_date 
-	AND
-	[AttendanceDate] < @end_date 
-	AND
-	[AttendanceDate] IN (SELECT OptionalDayDate from @OptionalDay)
-	AND
-	[AttendanceDate] NOT IN (SELECT HolidayDate from @Sandwichable)
-	AND
-	[EmployeeID] in (SELECT EmployeeID FROM dbo.Employee WHERE EmployeeStatus=1)
-	AND
-	([AttendanceStatus] in ('A', 'Holiday'))
+    [AttendanceDate] >= @begin_date 
+    AND
+    [AttendanceDate] < @end_date 
+    AND
+    [AttendanceDate] IN (SELECT OptionalDayDate from @OptionalDay)
+    AND
+    [AttendanceDate] NOT IN (SELECT HolidayDate from @Sandwichable)
+    AND
+    [EmployeeID] in (SELECT EmployeeID FROM dbo.Employee WHERE EmployeeStatus=1)
+    AND
+    ([AttendanceStatus] in ('A', 'Holiday'))
 
 UPDATE EmployeeAttendance
 set AttendanceStatus='Holiday'
