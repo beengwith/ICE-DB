@@ -1,16 +1,3 @@
-USE TestDB;
-
--- Declare @code int;
--- Declare @fromDate DateTime;
--- SET @fromDate=CAST('2016-05-20' AS DATETIME)
-
--- Delete from FPEntries
-    -- Where C_Date >= REPLACE(CONVERT(CHAR(20), @fromDate, 102), '.', '') 
-
--- Delete from attendancedetails
-	-- Where TrackDate >= @fromDate
-
-
 USE TestDb;
 
 -- CREATING THE TABLE IF IT DOES NOT EXIST
